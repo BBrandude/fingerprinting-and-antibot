@@ -3,7 +3,7 @@ function sleep(ms) {
 }
 
 
-//checks audio codes support 
+//checks audio codecs support 
 function getAudioInfo() {       
     var a = document.createElement('audio')
     return {
@@ -17,7 +17,7 @@ function getAudioInfo() {
     }
 }
 
-//checks video codes support 
+//checks video codecs support 
 function getVideoInfo() {
     var v = document.createElement('video')
     return {
