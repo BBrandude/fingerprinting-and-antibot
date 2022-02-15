@@ -87,8 +87,15 @@ function touchPointTests() {
         hasTouchPoints: touchPointPresent,
         testDetails: touchTests,
     }
+}
 
-
+function pluginLength() {
+    let plugins = navigator.plugins.length
+    if(plugins > 0) {
+        return true
+    } else {
+        return false
+    }
 }
 
 
