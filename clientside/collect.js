@@ -3,7 +3,7 @@ function sleep(ms) {
 }
 
 
-//checks audio codes support 
+//checks audio codecs support 
 function getAudioInfo() {       
     var a = document.createElement('audio')
     return {
@@ -17,7 +17,7 @@ function getAudioInfo() {
     }
 }
 
-//checks video codes support 
+//checks video codecs support 
 function getVideoInfo() {
     var v = document.createElement('video')
     return {
@@ -150,7 +150,8 @@ export default async function antibot() {
 
     const userData = {
         
-        userAgentIndentifier: navigator.userAgent,
+        navigator: {
+        userAgent: navigator.userAgent,
         userAppVersion: navigator.appVersion, //similar to userAgent
         isWebDriver: navigator.webdriver, //boolean
         isOnline: navigator.isOnline, //determines online connection 
@@ -163,7 +164,9 @@ export default async function antibot() {
         userLanguage2: navigator.languages,
         userTouchpoint: navigator.maxTouchPoints,
         userMemory: navigator.deviceMemory,
+        },
         
+        window: {
         InnerHeight: window.innerHeight,
         OuterHeight: window.outerHeight,
         OuterWidth: window.outerWidth,
@@ -172,15 +175,22 @@ export default async function antibot() {
         ScreenY: window.screenY,
         PageXOffset: window.pageXOffset,
         PageYOffset: window.pageYOffset,
-        docWidth: document.body.clientWidth,
-        docHeight: document.body.clientHeight,
+        DevicePixelRatio: window.devicePixelRatio,
+        },
+
+        screen: {
         windWidth: screen.width,
         windHeight: screen.height,
         AvailWidth: screen.availWidth,
         AvailHeight: screen.availHeight,
         ColorDepth: screen.colorDepth,
         PixelDepth: screen.pixelDepth,
-        DevicePixelRatio: window.devicePixelRatio,
+        },
+        
+        document: {
+        docWidth: document.body.clientWidth,
+        docHeight: document.body.clientHeight,
+        },
 
         isTouchScreenInfo: touchScreenTests,
 
