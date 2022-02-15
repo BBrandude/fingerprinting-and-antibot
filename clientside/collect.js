@@ -98,6 +98,14 @@ function pluginLength() {
     }
 }
 
+function history() {
+    let h = window.history
+    return {
+        length: h.length,
+        scrollRestoration: h.scrollRestoration
+    }
+}
+
 
 //tests to see if properties consistent with a webdriver are present. This function is nowhere near complete
 function automationTests() {
