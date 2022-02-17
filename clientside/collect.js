@@ -106,6 +106,28 @@ function history() {
     }
 }
 
+function navPermQuery(permission) {
+    return navigator.permissions.query({name: permission}).state
+}
+
+function permQueries() {
+    return {
+        accelerometer: navigator.permissions.query({name: 'accelerometer'}),
+        ambientLightSensor: '',
+        backgroundFetch: '',
+        backgroundSync: '',
+        bluetooth: '',
+        camera: '',
+        clipboardRead: '',
+        clipboardWrite: '',
+        deviceInfo: '',
+        displayCapture: '',
+        geolocation: '',
+        gyroscope: '',
+
+    }
+}
+
 
 //tests to see if properties consistent with a webdriver are present. This function is nowhere near complete
 function automationTests() {
@@ -206,6 +228,12 @@ export default async function antibot() {
         docWidth: document.body.clientWidth,
         docHeight: document.body.clientHeight,
         },
+
+        history: history(),
+
+        plugins: pluginLength(),
+
+        permissionQueries: navigator.permissions.query({name: 'accelerometer'}),
 
         isTouchScreenInfo: touchScreenTests,
 
