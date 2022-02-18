@@ -4,7 +4,7 @@ function sleep(ms) {
 
 
 //checks audio codecs support 
-function getAudioInfo() {       
+function getAudioInfo() {
     var a = document.createElement('audio')
     return {
         ogg: a.canPlayType('audio/ogg; codecs="vorbis"'),
@@ -55,7 +55,7 @@ function touchPointTests() {
     let t4 = navigator.msMaxTouchPoints
     let t5 = navigator.userAgentData.mobile
     let t6 = deviceType()
-    
+
     let touchTests = {
         t1: t,
         t2: t2,
@@ -91,7 +91,7 @@ function touchPointTests() {
 
 function pluginLength() {
     let plugins = navigator.plugins.length
-    if(plugins > 0) {
+    if (plugins > 0) {
         return true
     } else {
         return false
@@ -106,27 +106,16 @@ function history() {
     }
 }
 
-function navPermQuery(permission) {
-    return navigator.permissions.query({name: permission}).state
-}
-
-function permQueries() {
-    return {
-        accelerometer: navigator.permissions.query({name: 'accelerometer'}),
-        ambientLightSensor: '',
-        backgroundFetch: '',
-        backgroundSync: '',
-        bluetooth: '',
-        camera: '',
-        clipboardRead: '',
-        clipboardWrite: '',
-        deviceInfo: '',
-        displayCapture: '',
-        geolocation: '',
-        gyroscope: '',
-
+async function navPermQuery(permission) {
+    try {
+    var b = await navigator.permissions.query({ name: permission })
+    return b.state
+    } catch(e) {
+        return "rejected"
     }
 }
+
+
 
 
 //tests to see if properties consistent with a webdriver are present. This function is nowhere near complete
@@ -184,56 +173,79 @@ export default async function antibot() {
         }
     }
 
+    let perms = {
+        accelerometer: await navPermQuery("accelerometer"),
+        ambientLightSensor: await navPermQuery("ambient-light-sensor"),
+        backgroundFetch: await navPermQuery("background-fetch"),
+        backgroundSync: await navPermQuery("background-sync"),
+        bluetooth: await navPermQuery("bluetooth"),
+        camera: await navPermQuery("camera"),
+        clipboardRead: await navPermQuery("clipboard-read"),
+        clipboardWrite: await navPermQuery("clipboard-write"),
+        deviceInfo: await navPermQuery("device-info"),
+        displayCapture: await navPermQuery("display-capture"),
+        geolocation: await navPermQuery("geolocation"),
+        gyroscope: await navPermQuery("gyroscope"),
+        magnetometer: await navPermQuery("magnetometer"),
+        microphone: await navPermQuery("microphone"),
+        midi: await navPermQuery("midi"),
+        nfc: await navPermQuery("nfc"),
+        notifications: await navPermQuery("notifications"),
+        persistentStorage: await navPermQuery("persistent-storage"),
+        push: await navPermQuery("push"),
+        speaker: await navPermQuery("speaker"),
+    }
+
 
     const userData = {
-        
+
         navigator: {
-        userAgent: navigator.userAgent,
-        userAppVersion: navigator.appVersion, //similar to userAgent
-        isWebDriver: navigator.webdriver, //boolean
-        isOnline: navigator.isOnline, //determines online connection 
-        hardwareConcurrency: navigator.hardwareConcurrency, //value is different for every browser, match with the browser from another value
-        isCookieEnabled: navigator.cookieEnabled, //should be true even in incognito 
-        dontTrack: navigator.doNotTrack,
-        userPlatform: navigator.platform, //related to OS
-        userOperatingSystem: navigator.userAgentData.platform, //related to OS
-        userLanguage1: navigator.language,
-        userLanguage2: navigator.languages,
-        userTouchpoint: navigator.maxTouchPoints,
-        userMemory: navigator.deviceMemory,
+            userAgent: navigator.userAgent,
+            userAppVersion: navigator.appVersion, //similar to userAgent
+            isWebDriver: navigator.webdriver, //boolean
+            isOnline: navigator.isOnline, //determines online connection 
+            hardwareConcurrency: navigator.hardwareConcurrency, //value is different for every browser, match with the browser from another value
+            isCookieEnabled: navigator.cookieEnabled, //should be true even in incognito 
+            dontTrack: navigator.doNotTrack,
+            userPlatform: navigator.platform, //related to OS
+            userOperatingSystem: navigator.userAgentData.platform, //related to OS
+            userLanguage1: navigator.language,
+            userLanguage2: navigator.languages,
+            userTouchpoint: navigator.maxTouchPoints,
+            userMemory: navigator.deviceMemory,
         },
-        
+
         window: {
-        InnerHeight: window.innerHeight,
-        OuterHeight: window.outerHeight,
-        OuterWidth: window.outerWidth,
-        InnerWidth: window.innerWidth,
-        ScreenX: window.screenX,
-        ScreenY: window.screenY,
-        PageXOffset: window.pageXOffset,
-        PageYOffset: window.pageYOffset,
-        DevicePixelRatio: window.devicePixelRatio,
+            InnerHeight: window.innerHeight,
+            OuterHeight: window.outerHeight,
+            OuterWidth: window.outerWidth,
+            InnerWidth: window.innerWidth,
+            ScreenX: window.screenX,
+            ScreenY: window.screenY,
+            PageXOffset: window.pageXOffset,
+            PageYOffset: window.pageYOffset,
+            DevicePixelRatio: window.devicePixelRatio,
         },
 
         screen: {
-        windWidth: screen.width,
-        windHeight: screen.height,
-        AvailWidth: screen.availWidth,
-        AvailHeight: screen.availHeight,
-        ColorDepth: screen.colorDepth,
-        PixelDepth: screen.pixelDepth,
+            windWidth: screen.width,
+            windHeight: screen.height,
+            AvailWidth: screen.availWidth,
+            AvailHeight: screen.availHeight,
+            ColorDepth: screen.colorDepth,
+            PixelDepth: screen.pixelDepth,
         },
-        
+
         document: {
-        docWidth: document.body.clientWidth,
-        docHeight: document.body.clientHeight,
+            docWidth: document.body.clientWidth,
+            docHeight: document.body.clientHeight,
         },
 
         history: history(),
 
         plugins: pluginLength(),
 
-        permissionQueries: navigator.permissions.query({name: 'accelerometer'}),
+        permissionQueries: perms,
 
         isTouchScreenInfo: touchScreenTests,
 
